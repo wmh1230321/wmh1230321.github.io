@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>永恒的爱 - 申少欣</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff99cc, #ff1a66);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: '楷体', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+        }
+
+        .message {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0066,
+                       0 0 20px #ff0066,
+                       0 0 30px #ff0066;
+            animation: glow 2s ease-in-out infinite;
+            margin-bottom: 40px;
+        }
+
+        .rose-box {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .rose {
+            width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        /* 花瓣飘落动画 */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: url('https://www.freeiconspng.com/uploads/rose-petal-png-5.png') no-repeat;
+            background-size: contain;
+            animation: fall linear infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="message">申少欣 我爱你</h1>
+        <div class="rose-box">
+            <img class="rose" src="https://pngimg.com/uploads/rose/rose_PNG66722.png" alt="红玫瑰">
+            <div class="petals"></div>
+        </div>
+    </div>
+
+    <script>
+        // 自动生成花瓣
+        function createPetals() {
+            const petalsContainer = document.querySelector('.petals');
+            for(let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                petalsContainer.appendChild(petal);
+            }
+        }
+
+        // 点击玫瑰触发特效
+        document.querySelector('.rose-box').addEventListener('click', function() {
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => this.style.transform = 'scale(1)', 500);
+            
+            // 添加爱心特效
+            const heart = document.createElement('div');
+            heart.style.position = 'absolute';
+            heart.style.fontSize = '40px';
+            heart.style.color = '#ff0066';
+            heart.innerHTML = '❤';
+            heart.style.animation = 'float 2s ease-out';
+            this.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        });
+
+        createPetals();
+    </script>
+</body>
+</html>
